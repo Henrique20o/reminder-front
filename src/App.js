@@ -9,7 +9,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  function formatarData(valor) {
     const [ano, mes, dia] = valor.split("-");
     return `${dia}/${mes}/${ano}`;
   }
@@ -42,7 +41,6 @@ function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: novoTitulo,
-          date: novaData,
         }),
       });
 
@@ -86,7 +84,6 @@ function App() {
         />
         <input
           type="date"
-          onChange={(e) => setNovaData(formatarData(e.target.value))}
         />
         <button onClick={addLembrete}>Adicionar</button>
       </div>
@@ -109,7 +106,6 @@ function App() {
         )}
       </ul>
     </div>
-
   );
 }
 
