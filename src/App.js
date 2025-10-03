@@ -29,32 +29,32 @@ function App() {
     }
   }
 
-  async function addLembrete() {
-    if (!novoTitulo || !novaData) {
-      setError("Preencha todos os campos!");
-      return;
-    }
-
-    try {
-      setError("");
-      const res = await fetch("http://localhost:8081/reminder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: novoTitulo,
-          date: converterParaDDMMYYYY(novaData),
-        }),
-      });
-
-      if (!res.ok) throw new Error("Erro ao adicionar lembrete. Verifique se a data é futura.");
-
-      setNovoTitulo("");
-      setNovaData("");
-      getLembretes();
-    } catch (err) {
-      setError(err.message);
-    }
+async function addLembrete() {
+  if (!novoTitulo || !novaData) {
+    setError("Preencha todos os campos!");
+    return;
   }
+
+  try {
+    setError("");
+    const res = await fetch("http://localhost:8081/reminder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: novoTitulo,
+        date: converterParaDDMMYYYY(novaData),
+      }),
+    });
+
+    if (!res.ok) throw new Error("Erro ao adicionar lembrete. Verifique se a data é futura.");
+
+    setNovoTitulo("");
+    setNovaData("");
+    getLembretes();
+  } catch (err) {
+    setError(err.message);
+  }
+}
 
   async function deleteLembrete(id) {
     try {
