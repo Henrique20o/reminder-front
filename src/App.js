@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 
-
 function App() {
   const [lembretes, setLembretes] = useState([]);
   const [novoTitulo, setNovoTitulo] = useState("");
@@ -9,6 +8,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  function converterParaDDMMYYYY(valor) {
+    if (!valor) return "";
     const [ano, mes, dia] = valor.split("-");
     return `${dia}/${mes}/${ano}`;
   }
@@ -41,6 +42,7 @@ function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: novoTitulo,
+          date: converterParaDDMMYYYY(novaData),
         }),
       });
 
@@ -84,6 +86,8 @@ function App() {
         />
         <input
           type="date"
+          value={novaData}
+          onChange={(e) => setNovaData(e.target.value)}
         />
         <button onClick={addLembrete}>Adicionar</button>
       </div>
